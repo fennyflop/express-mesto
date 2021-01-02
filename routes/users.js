@@ -22,10 +22,9 @@ router.get('/users/:id', (req, res) => {
       users.forEach((user) => {
         if (user._id === req.params.id) {
           res.status(200).send(user);
-          return;
         }
       });
-      res.status(404).send({ "message": "Нет пользователя с таким id" });
+      res.status(404).send({ message: 'Нет пользователя с таким id' });
     })
     .catch((err) => {
       res.status(500).send(err);
