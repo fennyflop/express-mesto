@@ -12,8 +12,8 @@ router.get('/users', (req, res) => {
     })
     .catch((err) => {
       res.status(500).send(err);
-    })
-})
+    });
+});
 
 router.get('/users/:id', (req, res) => {
   fs.readFile(dataPath)
@@ -23,11 +23,14 @@ router.get('/users/:id', (req, res) => {
         if (user._id === req.params.id) {
           res.status(200).send(user);
           return;
-        };
-      })
-      res.status(404).send({ "message": "Нет пользователя с таким id" })
+        }
+      });
+      res.status(404).send({ "message": "Нет пользователя с таким id" });
     })
-})
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+});
 
 // .then((data) => {
 //   const users = JSON.parse(data);
