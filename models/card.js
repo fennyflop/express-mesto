@@ -11,10 +11,10 @@ const cardSchema = new mongoose.Schema({
     required: true,
     type: String,
     validate: {
-      validator: function (v) {
-        return /^https?:\/\/[-a-zA-Z0-9@:%._\+~#=]{1,}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/.test(v)
-      }
-    }
+      validator(v) {
+        return /^https?:\/\/[-a-zA-Z0-9@:%._~#=]{1,}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_.~#?&//=]*)/.test(v);
+      },
+    },
   },
   owner: {
     required: true,
@@ -28,7 +28,7 @@ const cardSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
-  }
-})
+  },
+});
 
 module.exports = mongoose.model('card', cardSchema);
