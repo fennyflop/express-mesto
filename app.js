@@ -18,17 +18,13 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useFindAndModify: false
 });
 
-// Front page
-
-app.use(express.static(`${__dirname}/public`));
-
 // User request & Cards request
 
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
   req.user = {
-    _id: '5d8b8592978f8bd833ca8133' // вставьте сюда _id созданного в предыдущем пункте пользователя
+    _id: '5ff781599a67a31d6d1cd6cf' // вставьте сюда _id созданного в предыдущем пункте пользователя
   };
   next();
 });
