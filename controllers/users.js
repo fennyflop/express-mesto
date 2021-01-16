@@ -48,12 +48,12 @@ module.exports.getUser = (req, res) => {
       if (data) {
         res.status(200).send(data);
       } else {
-        res.status(404).send({ message: "Пользователь не найден" });
+        res.status(404).send({ message: 'Пользователь не найден' });
       }
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        res.status(404).send({ message: "Пользователь не найден" });
+        res.status(404).send({ message: 'Пользователь не найден' });
       } else {
         res.status(500).send({ message: 'На сервере произошла ошибка' });
       }
