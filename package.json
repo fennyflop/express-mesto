@@ -1,7 +1,7 @@
 {
   "name": "express-mesto",
   "version": "1.0.0",
-  "description": "",
+  "description": "## Директории",
   "main": "index.js",
   "scripts": {
     "start": "node app.js",
@@ -19,5 +19,13 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.6"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fennyflop/express-mesto.git"
+  },
+  "bugs": {
+    "url": "https://github.com/fennyflop/express-mesto/issues"
+  },
+  "homepage": "https://github.com/fennyflop/express-mesto#readme"
 }
