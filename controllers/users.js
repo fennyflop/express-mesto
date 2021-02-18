@@ -1,4 +1,44 @@
 const User = require('../models/user');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
+module.exports.login = (req, res) => {
+  const { email, password } = req.body;
+
+  return User.findUserByCredentials(email, password)
+    .then((user) => {
+      res.send({
+        token: jwt.sign({ _id: user._id }, 'oleg2000', { expiresIn: '7d' })
+      })
+    })
+    .catch((err) => {
+      res.status(401).send({ message: "Неправильная почта или пароль" })
+    })
+}
+
+module.exports.createUser = (req, res) => {
+  const { email, password } = req.body;
+
+  bcrypt.hash(password, 10)
+    .then((hash) => {
+      User.create({
+        email: email,
+        password: hash,
+        name: undefined,
+        about: undefined,
+        avatar: undefined,
+      })
+        .then((user) => {
+          res.status(201).send({
+            _id: user._id,
+            email: user.email,
+          });
+        })
+        .catch((err) => {
+          res.status(500).send({ message: 'На сервере произошла ошибка' })
+        })
+    })
+}
 
 module.exports.updateAvatar = (req, res) => {
   const { avatar } = req.body;
@@ -60,10 +100,10 @@ module.exports.getUser = (req, res) => {
     });
 };
 
-module.exports.createUser = (req, res) => {
-  const { name, about, avatar } = req.body;
+// module.exports.createUser = (req, res) => {
+//   const { name, about, avatar } = req.body;
 
-  User.create({ name, about, avatar })
-    .then((user) => res.status(200).send({ data: user }))
-    .catch(() => res.status(500).send({ message: 'На сервере произошла ошибка' }));
-};
+//   User.create({ name, about, avatar })
+//     .then((user) => res.status(200).send({ data: user }))
+//     .catch((err) => res.status(500).send({ err }));
+// };
