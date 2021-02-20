@@ -39,13 +39,25 @@ module.exports.getCards = (req, res) => {
 };
 
 module.exports.deleteCard = (req, res) => {
-  Card.findByIdAndRemove(req.params.cardId)
+  const cardId = req.params.cardId;
+
+  Card.findById(cardId)
     .then((card) => {
-      res.status(200).send({ data: card });
+      if (card.owner._id.toString() === req.user._id.toString()) {
+        Card.findByIdAndRemove()
+          .then((deletedCard) => {
+            res.status(200).send({ deletedCard });
+          })
+          .catch((err) => {
+            res.status(500).send({ err });
+          })
+      } else {
+        return Promise.reject('Данная карточка вам не принадлежит');
+      }
     })
-    .catch(() => {
-      res.status(500).send({ message: 'На сервере произошла ошибка' });
-    });
+    .catch((err) => {
+      res.status(500).send({ message: err });
+    })
 };
 
 module.exports.createCard = (req, res) => {
@@ -55,7 +67,7 @@ module.exports.createCard = (req, res) => {
     .then((card) => {
       res.status(200).send({ data: card });
     })
-    .catch(() => {
-      res.status(500).send({ message: 'На сервере произошла ошибка' });
+    .catch((err) => {
+      res.status(500).send({ err });
     });
 };

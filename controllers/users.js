@@ -12,7 +12,7 @@ module.exports.login = (req, res) => {
       })
     })
     .catch((err) => {
-      res.status(401).send({ message: "Неправильная почта или пароль" })
+      res.status(401).send({ message: err.message })
     })
 }
 
@@ -72,6 +72,16 @@ module.exports.updateUser = (req, res) => {
     });
 };
 
+module.exports.getMyself = (req, res) => {
+  User.findById(req.user_id)
+    .then((user) => {
+      res.status(200).send({ user });
+    })
+    .catch((err) => {
+      res.status(500).send({ err });
+    })
+}
+
 module.exports.getUsers = (req, res) => {
   User.find({})
     .then((data) => {
@@ -99,11 +109,3 @@ module.exports.getUser = (req, res) => {
       }
     });
 };
-
-// module.exports.createUser = (req, res) => {
-//   const { name, about, avatar } = req.body;
-
-//   User.create({ name, about, avatar })
-//     .then((user) => res.status(200).send({ data: user }))
-//     .catch((err) => res.status(500).send({ err }));
-// };
