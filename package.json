@@ -25,10 +25,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fennyflop/express-mesto.git"
+    "url": "git+https://github.com/fennyflop/react-mesto-api-full.git"
   },
   "bugs": {
-    "url": "https://github.com/fennyflop/express-mesto/issues"
+    "url": "https://github.com/fennyflop/react-mesto-api-full/issues"
   },
-  "homepage": "https://github.com/fennyflop/express-mesto#readme"
+  "homepage": "https://github.com/fennyflop/react-mesto-api-full#readme"
 }
